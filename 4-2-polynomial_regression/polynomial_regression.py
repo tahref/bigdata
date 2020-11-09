@@ -2,6 +2,8 @@ import numpy as np
 from sklearn import linear_model
 from sklearn.preprocessing import PolynomialFeatures
 import plotly.express as px
+from sklearn.model_selection import train_test_split
+
 
 # this makes the plot show in the browser even if run from inside PyCharm (without this, the plot does not open)
 import plotly.io as pio
@@ -18,20 +20,20 @@ amazon_y = dataset[:, np.newaxis, 1]
 fig = px.bar(x=amazon_X.flatten(), y=amazon_y.flatten())
 
 # TODO split the data into training/testing sets
-amazon_X_train, amazon_X_test, amazon_y_train, amazon_y_test = ...
+amazon_X_train, amazon_X_test, amazon_y_train, amazon_y_test = train_test_split(amazon_X, amazon_y, 1/3)
 
 # TODO add some more future x values to amazon_X_test to get predictions for (e.g. for 2021, 2022,...)
-amazon_X_test = ...
+# amazon_X_test = ...
 
 # LINEAR REGRESSION
 # TODO create linear regression object
-regression = ...
+regression = linear_model.LinearRegression()
 
 # TODO train the model using the training sets
-regression.fit(...)
+regression.fit(amazon_X_train, amazon_y_train)
 
 # TODO make predictions using the testing set
-amazon_y_pred = regression.predict(...)
+amazon_y_pred = regression.predict(amazon_X_test)
 
 # TODO plot outputs
 fig.add_scatter(x=....flatten(), y=....flatten(), name='predictions (linear regression)')
